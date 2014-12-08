@@ -14,7 +14,7 @@ var (
 	x       = flag.Int("x", 4, "Which uuid version to use (1 or 4")
 	v       = flag.Bool("v", false, "Show version")
 	h       = flag.Bool("h", false, "Show help")
-	version = "1.0.0"
+	version = "1.0.1"
 )
 
 func main() {
@@ -36,6 +36,7 @@ func main() {
 		u, err := NewUUID(*x)
 		if err != nil {
 			fmt.Println("-x must be 1 or 4")
+			os.Exit(1)
 		}
 		l = append(l, u)
 	}
