@@ -19,7 +19,7 @@ var (
 	t       = flag.Bool("t", false, "Trim whitespace before printing")
 	v       = flag.Bool("v", false, "Show version")
 	h       = flag.Bool("h", false, "Show help")
-	version = "1.3.0"
+	version = "1.3.1"
 )
 
 func main() {
@@ -85,6 +85,8 @@ Creates a UUID and prints it. Can create multiple UUID's with -n <num>.
 	-h         Show help
 	-n <num>   Number of uuids to create [1]
 	-x <num>   UUID generation version: 1 or 4 [4]
+	-b "<str>" String applied to the beginning of the list of uuids
+	-a "<str>" String applied to the end of the list of uuids
 	-f "<str>" Format string used when adding uuid to list
 	-s "<str>" Separator used when joining multiple uuids together
 	-t         Trim whitespace before printing
