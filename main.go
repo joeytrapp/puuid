@@ -12,12 +12,14 @@ import (
 var (
 	n       = flag.Int("n", 1, "Number of uuids to create")
 	x       = flag.Int("x", 4, "Which uuid version to use (1 or 4")
+	b       = flag.String("b", "", "String applied before the list of uuids")
+	a       = flag.String("a", "", "String applied after the list of uuids")
 	f       = flag.String("f", "%s", "Format string used when adding uuid to list")
 	s       = flag.String("s", "\n", "Separator used when joining multiple uuids together")
 	t       = flag.Bool("t", false, "Trim whitespace before printing")
 	v       = flag.Bool("v", false, "Show version")
 	h       = flag.Bool("h", false, "Show help")
-	version = "1.2.0"
+	version = "1.3.0"
 )
 
 func main() {
@@ -41,10 +43,10 @@ func main() {
 			fmt.Println("-x must be 1 or 4")
 			os.Exit(1)
 		}
-		l = append(l, fmt.Sprintf(*f, ReplaceSpecial(u)))
+		l = append(l, fmt.Sprintf(ReplaceSpecial(*f), u))
 	}
 	str := strings.Join(l, ReplaceSpecial(*s))
-	str = str + "\n"
+	str = ReplaceSpecial(*b) + str + ReplaceSpecial(*a) + "\n"
 	if *t {
 		str = strings.TrimSpace(str)
 	}
