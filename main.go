@@ -17,7 +17,7 @@ var (
 	t       = flag.Bool("t", false, "Trim whitespace before printing")
 	v       = flag.Bool("v", false, "Show version")
 	h       = flag.Bool("h", false, "Show help")
-	version = "1.1.0"
+	version = "1.2.0"
 )
 
 func main() {
@@ -41,9 +41,9 @@ func main() {
 			fmt.Println("-x must be 1 or 4")
 			os.Exit(1)
 		}
-		l = append(l, fmt.Sprintf(*f, u))
+		l = append(l, fmt.Sprintf(*f, ReplaceSpecial(u)))
 	}
-	str := strings.Join(l, *s)
+	str := strings.Join(l, ReplaceSpecial(*s))
 	str = str + "\n"
 	if *t {
 		str = strings.TrimSpace(str)
@@ -61,6 +61,17 @@ func NewUUID(v int) (string, error) {
 		return "", fmt.Errorf("Invalid UUID version %d", v)
 	}
 	return fmt.Sprintf("%s", u), nil
+}
+
+func ReplaceSpecial(str string) string {
+	r := map[string]string{
+		`\n`: "\n",
+		`\t`: "\t",
+	}
+	for k, v := range r {
+		str = strings.Replace(str, k, v, -1)
+	}
+	return str
 }
 
 func HelpText() string {
